@@ -1,0 +1,17 @@
+{
+  "name": "finance-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Priyanshu Jindal <priyanshujindal1995@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "babel": "babel src -d js --watch --minified --compact true --no-comments"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.6.0"
+  },
+  "dependencies": {
+    "sass-lint": "^1.10.2"
+  }
+}
