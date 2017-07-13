@@ -1,33 +1,28 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 
+import Container from '../components/Container';
+
 import PersonsSearch from '../components/PersonsSearch';
 import PersonCard from '../components/PersonCard';
 import EntriesTable from '../components/EntriesTable';
 
-const Container = styled.div`
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`
-
-const Upper = styled.div`
+const ContactSide = styled.div`
   display: flex;
   justify-content: space-between;
-  flex-direction: row;
-  height: 350px;
+  flex-direction: column;
+  min-width: 400px;
 `
 
 class App extends PureComponent {
   render() {
     return (
       <Container>
-        <Upper>
+        <EntriesTable />
+        <ContactSide>
           <PersonsSearch/>
           <PersonCard />
-        </Upper>
-        <EntriesTable />
+        </ContactSide>
       </Container>
     );
   }

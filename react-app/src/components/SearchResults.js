@@ -5,7 +5,6 @@ import faker from 'faker';
 const Container = styled.div`
   flex: 1;
   overflow-y: scroll;
-  max-height: 300px;
 `
 
 let people_list = []

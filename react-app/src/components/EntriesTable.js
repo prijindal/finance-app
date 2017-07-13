@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import faker from 'faker';
 
-import { Link } from 'react-router-dom';
+import EntryInput from './EntryInput';
 
 const Container = styled.div`
   flex: 1;
@@ -26,7 +26,7 @@ export default class EntriesTable extends PureComponent {
             </tr>
           </thead>
           <tbody>
-            {[1,2,3,4,5,6,7,8,9,10].map(i =>
+            {[1,2,3,4,5,6].map(i =>
               <tr key={i}>
                 <td className="collapsing">
                   <div className="ui fitted checkbox">
@@ -43,18 +43,19 @@ export default class EntriesTable extends PureComponent {
                 </td>
               </tr>
             )}
+            <EntryInput />
           </tbody>
           <tfoot className="full-width">
             <tr>
               <th></th>
               <th colSpan="4">
-                <Link to="add" className="ui right floated small primary labeled icon button">
+                <button className="ui right floated small primary labeled icon button">
                   <i className="add icon"></i> Add Entry
-                </Link>
+                </button>
                 <div className="ui small button">
                   Select All
                 </div>
-                <div className="ui small  button">
+                <div className="ui small disabled button">
                   Delete
                 </div>
               </th>

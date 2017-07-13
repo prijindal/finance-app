@@ -43,7 +43,7 @@ export default class PersonCard extends PureComponent {
           <div className="extra content">
             <div className="ui two buttons">
               <div className="ui basic green button">New entry</div>
-              <div className="ui basic red button">Clear all</div>
+              <div className="ui basic red button">Delete all</div>
             </div>
           </div>
         </Card>
