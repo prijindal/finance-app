@@ -1,8 +1,14 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 
+import {
+  BrowserRouter as Router,
+  Route,
+} from 'react-router-dom'
+
 import LeftBar from './components/LeftBar';
 import Home from './pages/Home';
+import About from './pages/About';
 
 const Container = styled.div`
   height: 100%;
@@ -14,10 +20,13 @@ const Container = styled.div`
 class App extends PureComponent {
   render() {
     return (
-      <Container>
-        <LeftBar />
-        <Home/>
-      </Container>
+      <Router>
+        <Container>
+          <LeftBar />
+          <Route exact path="/" component={Home}/>
+          <Route path="/about" component={About}/>
+        </Container>
+      </Router>
     );
   }
 }
