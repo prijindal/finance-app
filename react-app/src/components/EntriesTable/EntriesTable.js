@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
-import faker from 'faker';
+import moment from 'moment';
 
-import EntryInput from './EntryInput';
+import EntryInput from '../EntryInput';
 
 const Container = styled.div`
   flex: 1;
@@ -20,24 +20,26 @@ export default class EntriesTable extends PureComponent {
             <tr>
               <th></th>
               <th>Name</th>
-              <th>Amount</th>
+              <th>Credit</th>
+              <th>Debit</th>
               <th>Date</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {[1,2,3,4,5,6].map(i =>
-              <tr key={i}>
+            {this.props.entries.map(entry =>
+              <tr key={entry.id}>
                 <td className="collapsing">
                   <div className="ui fitted checkbox">
                     <input type="checkbox" /> <label></label>
                   </div>
                 </td>
-                <td>{faker.name.firstName()}</td>
-                <td>+{i * 1000}</td>
-                <td className="right aligned collapsing">{i + 10} hours ago</td>
+                <td>{entry.person}</td>
+                <td>{entry.credit}</td>
+                <td>{entry.debit}</td>
+                <td className="right aligned collapsing">{moment(entry.time).fromNow()}</td>
                 <td className="collapsing">
-                  <button className="ui icon red button">
+                  <button className="ui icon red button" onClick={() => this.props.deleteEntry(entry.id)}>
                     <i className={"delete icon"}></i>
                   </button>
                 </td>
@@ -48,7 +50,7 @@ export default class EntriesTable extends PureComponent {
           <tfoot className="full-width">
             <tr>
               <th></th>
-              <th colSpan="4">
+              <th colSpan="5">
                 <button className="ui right floated small primary labeled icon button">
                   <i className="add icon"></i> Add Entry
                 </button>
