@@ -1,39 +1,58 @@
 import React, { PureComponent } from 'react';
 import jQuery from 'jquery';
-import faker from 'faker';
-
-const persons = [];
-
-for (var i = 0; i < 20; i++) {
-  persons.push({
-    name: faker.name.firstName()
-  })
-}
 
 class EntryInput extends PureComponent {
   componentDidMount() {
-    jQuery('#inputSearch').search({
-      source: persons,
+    this.updateSearch(this.props.persons)
+  }
+
+  updateSearch = (source) => {
+    this._search = jQuery('#inputSearch').search({
+      source,
       searchFields: ['name'],
       fields: {
         title: 'name'
+      },
+      onSelect: (person) => {
+        this.setState({
+          person
+        })
       }
     })
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.updateSearch(nextProps.persons)
+  }
+
   state = {
-    person: undefined,
-    credit: undefined,
-    debit: undefined,
+    person: null,
+    personText: '',
+    credit: '',
+    debit: '',
   }
 
   onSubmit = (e) => {
     e.preventDefault();
-    this.props.addEntry(this.state);
+    const { person, personText, credit, debit } = this.state;
+    if(person) {
+      this.props.addEntry({
+        person: person.id,
+        credit,
+        debit
+      })
+    } else {
+      const { id } = this.props.addPerson(personText);
+      this.props.addEntry({
+        person: id,
+        credit,
+        debit
+      })
+    }
     this.setState({
-      person: undefined,
-      credit: undefined,
-      debit: undefined,
+      personText: '',
+      credit: '',
+      debit: '',
     })
   }
 
@@ -41,6 +60,12 @@ class EntryInput extends PureComponent {
     this.setState({
       [e.target.name]: e.target.value
     });
+  }
+
+  checkEnter = (e) => {
+    if(e.keyCode === 13) {
+      this.onSubmit(e);
+    }
   }
 
   render() {
@@ -53,9 +78,10 @@ class EntryInput extends PureComponent {
             className="prompt"
             type="text"
             placeholder="Person"
-            name="person"
+            name="personText"
             onChange={this.onChange}
-            value={this.state.person}
+            value={this.state.personText}
+            onKeyUp={this.checkEnter}
           />
         </td>
         <td className="ui search">
@@ -66,6 +92,7 @@ class EntryInput extends PureComponent {
             name="credit"
             onChange={this.onChange}
             value={this.state.credit}
+            onKeyUp={this.checkEnter}
           />
         </td>
         <td className="ui search">
@@ -76,6 +103,7 @@ class EntryInput extends PureComponent {
             name="debit"
             onChange={this.onChange}
             value={this.state.debit}
+            onKeyUp={this.checkEnter}
           />
         </td>
         <td>

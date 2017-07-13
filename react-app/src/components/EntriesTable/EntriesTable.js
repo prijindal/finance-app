@@ -34,7 +34,7 @@ export default class EntriesTable extends PureComponent {
                     <input type="checkbox" /> <label></label>
                   </div>
                 </td>
-                <td>{entry.person}</td>
+                <td>{entry.person.name}</td>
                 <td>{entry.credit}</td>
                 <td>{entry.debit}</td>
                 <td className="right aligned collapsing">{moment(entry.time).fromNow()}</td>

@@ -10,7 +10,7 @@ export default class SearchBar extends PureComponent {
     return (
       <div className="ui search">
         <SearchBox className="ui icon input">
-          <input className="prompt" type="text" placeholder="People" />
+          <input className="prompt" type="text" placeholder="Search Person" />
           <i className="search icon"></i>
         </SearchBox>
       </div>
