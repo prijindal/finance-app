@@ -19,7 +19,7 @@ const addEntry = (state: State = INITIAL_STATE, action) => (
       credit: action.credit,
       debit: action.debit,
       id: action.id,
-      date: action.time,
+      date: action.date,
     }
   ]
 )

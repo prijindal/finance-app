@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 
 const Container = styled.div`
   flex: 1;
@@ -19,22 +20,27 @@ const TableContent = styled.div`
 
 export default class PersonCard extends PureComponent {
   render() {
+    const { selectedPerson } = this.props
+    if(!selectedPerson) {
+      return <div></div>
+    }
     return (
       <Container className="ui attached segment inverted">
         <Card className="ui card">
           <div className="content">
-            <a className="header">Daniel</a>
+            <a className="header">{selectedPerson.name}</a>
             <div className="meta">
-              <span className="date">Balance: 10000</span>
+              <span className="date">Balance: {this.props.entries.reduce((last, entry) => (entry.credit - entry.debit + last), 0)}</span>
             </div>
           </div>
           <TableContent className="content">
             <table className="ui celled striped table">
               <tbody>
-                {[1,2,3,4,5,6].map(i =>
-                  <tr key={i}>
-                    <td>+{i * 1000}</td>
-                    <td className="right aligned collapsing">{i + 10} hours ago</td>
+                {this.props.entries.map(entry =>
+                  <tr key={entry.id}>
+                    <td>+{entry.credit}</td>
+                    <td>-{entry.debit}</td>
+                    <td className="right aligned collapsing">{moment(entry.date).fromNow()}</td>
                   </tr>
                 )}
               </tbody>
