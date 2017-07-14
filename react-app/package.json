@@ -2,7 +2,9 @@
   "name": "finance-app",
   "version": "0.1.0",
   "private": true,
+  "main": "index.js",
   "dependencies": {
+    "electron": "^1.6.11",
     "faker": "^4.1.0",
     "jquery": "^3.2.1",
     "localforage": "^1.5.0",
@@ -23,6 +25,8 @@
     "react-scripts": "1.0.10"
   },
   "scripts": {
+    "start:app": "npm run electron & npm start",
+    "electron": "electron .",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

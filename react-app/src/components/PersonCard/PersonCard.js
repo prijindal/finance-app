@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
+import jQuery from 'jquery';
 
 const Container = styled.div`
   flex: 1;
@@ -19,6 +20,17 @@ const TableContent = styled.div`
 `
 
 export default class PersonCard extends PureComponent {
+  newEntry = () => {
+    jQuery('#inputSearch input').val(this.props.selectedPerson.name)
+  }
+
+  deleteAll = () => {
+    this.props.entries.forEach(entry => {
+      this.props.deleteEntry(entry.id);
+    })
+    this.props.deletePerson(this.props.selectedPerson.id)
+  }
+
   render() {
     const { selectedPerson } = this.props
     if(!selectedPerson) {
@@ -48,8 +60,8 @@ export default class PersonCard extends PureComponent {
           </TableContent>
           <div className="extra content">
             <div className="ui two buttons">
-              <div className="ui basic green button">New entry</div>
-              <div className="ui basic red button">Delete all</div>
+              <div className="ui basic green button" onClick={this.newEntry}>New entry</div>
+              <div className="ui basic red button" onClick={this.deleteAll}>Delete all</div>
             </div>
           </div>
         </Card>

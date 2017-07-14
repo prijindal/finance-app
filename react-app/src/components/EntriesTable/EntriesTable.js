@@ -12,6 +12,49 @@ const Container = styled.div`
 `
 
 export default class EntriesTable extends PureComponent {
+  state = {
+    checked: []
+  }
+
+  toggleChecked = (entry) => {
+    let filteredChecked = this.state.checked.filter(i => i === entry.id)
+    if(filteredChecked.length > 0) {
+      this.setState(prevState => ({
+        checked: prevState.checked.filter(i => i !== entry.id)
+      }))
+    } else {
+      this.setState(prevState => ({
+        checked: [
+          ...prevState.checked,
+          entry.id
+        ]
+      }))
+    }
+  }
+
+  deleteChecked = () => {
+    this.state.checked.forEach(i => {
+      this.props.deleteEntry(i)
+    })
+    this.clearAll();
+  }
+
+  selectAll = () => {
+    this.setState(prevState => ({
+      checked: this.props.entries.map(i => i.id)
+    }))
+  }
+
+  clearAll = () => {
+    this.setState({
+      checked: []
+    })
+  }
+
+  isChecked = (id) => {
+    return this.state.checked.filter(i => i === id).length > 0;
+  }
+
   render() {
     return (
       <Container className="ui">
@@ -30,8 +73,9 @@ export default class EntriesTable extends PureComponent {
             {this.props.entries.map(entry =>
               <tr key={entry.id}>
                 <td className="collapsing">
-                  <div className="ui fitted checkbox">
-                    <input type="checkbox" /> <label></label>
+                  <div className="ui fitted checkbox checked">
+                    <input type="checkbox" onChange={() => this.toggleChecked(entry)} checked={this.isChecked(entry.id)}/>
+                    <label></label>
                   </div>
                 </td>
                 <td>{entry.person.name}</td>
@@ -51,13 +95,13 @@ export default class EntriesTable extends PureComponent {
             <tr>
               <th></th>
               <th colSpan="5">
-                <button className="ui right floated small primary labeled icon button">
-                  <i className="add icon"></i> Add Entry
-                </button>
-                <div className="ui small button">
+                <div className={"ui small button " + (this.state.checked.length !== this.props.entries.length ? "": "disabled")} onClick={this.selectAll}>
                   Select All
                 </div>
-                <div className="ui small disabled button">
+                <div className={"ui small button " + (this.state.checked.length > 0 ? "": "disabled")} onClick={this.clearAll}>
+                  Clear All
+                </div>
+                <div className={"ui small button " + (this.state.checked.length > 0 ? "": "disabled")} onClick={this.deleteChecked}>
                   Delete
                 </div>
               </th>

@@ -13,15 +13,19 @@ class EntryInput extends PureComponent {
       fields: {
         title: 'name'
       },
+      searchDelay: 0,
+      selectFirstResult: true,
       onSelect: (person) => {
         this.setState({
-          person
+          person,
+          personText: person.name
         })
       }
     })
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps.persons);
     this.updateSearch(nextProps.persons)
   }
 
@@ -50,6 +54,7 @@ class EntryInput extends PureComponent {
       })
     }
     this.setState({
+      person: null,
       personText: '',
       credit: '',
       debit: '',
@@ -81,7 +86,6 @@ class EntryInput extends PureComponent {
             name="personText"
             onChange={this.onChange}
             value={this.state.personText}
-            onKeyUp={this.checkEnter}
           />
         </td>
         <td className="ui search">

@@ -11,7 +11,7 @@ export const addPerson = (name):Action => ({
   id: uuid.v4(),
 });
 
-export const deleteEntry = (id):Action => ({
+export const deletePerson = (id):Action => ({
   type: DELETE_PERSON,
   id
 });
