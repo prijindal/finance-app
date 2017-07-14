@@ -1,6 +1,8 @@
 const {app, BrowserWindow, ipcMain} = require('electron');
 
 var mainWindow = null;
+let ENV = 'DEVELOPMENT'
+ENV = 'PRODUCTION'
 
 app.on('window-all-closed', function() {
   //if (process.platform != 'darwin') {
@@ -12,12 +14,11 @@ let starttime = Date.now();
 
 app.on('ready', function() {
   // call python?
-
-  mainWindow = new BrowserWindow({width: 800, height: 600});
-  // mainWindow.loadURL('file://' + __dirname + '/index.html');
-  mainWindow.loadURL('http://localhost:3000');
-  mainWindow.webContents.openDevTools();
-  mainWindow.on('closed', function() {
-    mainWindow = null;
-  });
+  if(ENV === 'DEVELOPMENT') {
+    let { startApp } = require('./electron/dev');
+    startApp();
+  } else {
+    let { startApp } = require('./electron/prod');
+    startApp();
+  }
 });

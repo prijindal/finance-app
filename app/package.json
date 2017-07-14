@@ -1,10 +1,15 @@
 {
   "name": "finance-app",
+  "description": "A personal finance management app",
+  "author": "Priyanshu Jindal",
   "version": "0.1.0",
   "private": true,
   "main": "index.js",
+  "homepage": "./",
+  "build": {
+    "appId": "com.prijindal.financeapp"
+  },
   "dependencies": {
-    "electron": "^1.6.11",
     "faker": "^4.1.0",
     "jquery": "^3.2.1",
     "localforage": "^1.5.0",
@@ -22,13 +27,15 @@
     "styled-components": "^2.1.1"
   },
   "devDependencies": {
+    "electron": "^1.6.11",
+    "electron-packager": "^8.7.2",
     "react-scripts": "1.0.10"
   },
   "scripts": {
     "start:app": "npm run electron & npm start",
     "electron": "electron .",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build --env=prod",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
